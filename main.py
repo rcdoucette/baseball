@@ -15,10 +15,15 @@ def xfip():
     headers = { 'User-Agent': 'Mozilla/5.0' }
 
     r = requests.get(url, headers=headers)
+    
+    print(f"Status: {r.status_code}")
+    print(f"First 500 chars: {r.text[:500]}")
+
     if r.ok and r.text.startswith("Team"):
         return Response(r.text, mimetype="text/csv")
     else:
         return Response("Error fetching FanGraphs data", status=500)
+
 
 @app.route("/")
 def index():
